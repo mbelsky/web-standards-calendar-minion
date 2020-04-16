@@ -7,9 +7,16 @@
   "workspaces": [
     "src/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "start": "node ./src/telegram-bot",
+    "test": "jest"
+  },
   "devDependencies": {
     "eslint": "^6.8.0",
+    "jest": "^25.3.0",
     "prettier": "^2.0.4"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
   }
 }
