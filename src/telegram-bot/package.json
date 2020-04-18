@@ -1,0 +1,10 @@
+{
+  "name": "telegram-bot",
+  "version": "0.1.0",
+  "main": "telegram-bot.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "telegraf": "^3.37.0"
+  }
+}
