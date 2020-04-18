@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "telegraf": "^3.37.0",
+    "telegraf-ratelimit": "^2.0.0",
     "yamljs": "^0.3.0"
   }
 }
