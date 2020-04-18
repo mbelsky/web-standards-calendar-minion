@@ -43,4 +43,5 @@ module.exports = {
   getTimeFromString,
   isValidDate,
   isValidTime,
+  parseDateOutput,
 }

@@ -1,9 +1,16 @@
 const Scene = require('telegraf/scenes/base')
 const Stage = require('telegraf/stage')
+const prMaker = require('pr-maker')
+const convertAnswersToYaml = require('../utils/convertAnswersToYaml')
 const getActiveQuestion = require('./getActiveQuestion')
 const questions = require('./questions')
 
 const SCENE_NAME = 'new'
+
+const makePr = (ctx, yamlFileData) =>
+  prMaker
+    .makePullRequest(yamlFileData)
+    .then(({ message }) => ctx.reply(message))
 
 const validateAnswer = ({ question, answers, answer }) => {
   if (typeof question.validate !== 'function') {
@@ -19,10 +26,7 @@ const scene = new Scene(SCENE_NAME)
     return ctx.reply(question.message)
   })
   .leave((ctx) => {
-    // TODO: create file & trigger pr creation
-    const message = JSON.stringify(ctx.session.createEventScene, null, 2)
     ctx.session.createEventScene = undefined
-    return ctx.reply('Scene new left\n\n' + message)
   })
   .on('message', (ctx) => {
     const { createEventScene = {} } = ctx.session
@@ -53,7 +57,9 @@ const scene = new Scene(SCENE_NAME)
     const nextQuestion = getActiveQuestion(questions, answers)
 
     if (nextQuestion === undefined) {
-      return Stage.leave()(ctx)
+      const yamlFileData = convertAnswersToYaml(answers)
+
+      return Promise.all([makePr(ctx, yamlFileData), Stage.leave()(ctx)])
     }
 
     const message =
