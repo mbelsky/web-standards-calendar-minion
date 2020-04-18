@@ -14,7 +14,13 @@ const createEventScene = require('./createEventScene/createEvent')
 
 const stage = new Stage()
 
-stage.register(createEventScene.scene).command('cancel', Stage.leave())
+stage.register(createEventScene.scene).command('cancel', (ctx) => {
+  return Promise.all([
+    // TODO: also reset keyboard markup here
+    ctx.reply(constants.BREAK_EVENT_CREATION_MESSAGE),
+    Stage.leave()(ctx),
+  ])
+})
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 const rateLimitConfig = {
