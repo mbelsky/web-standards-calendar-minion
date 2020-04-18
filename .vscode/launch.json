@@ -11,6 +11,17 @@
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/src/telegram-bot/telegram-bot",
       "outFiles": ["${workspaceFolder}/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest prMaker",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["--runInBand", "prMaker"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
