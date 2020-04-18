@@ -1,0 +1,10 @@
+{
+  "name": "pr-maker",
+  "version": "1.0.0",
+  "main": "prMaker.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@octokit/rest": "^17.3.0"
+  }
+}
