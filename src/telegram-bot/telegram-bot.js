@@ -30,5 +30,10 @@ bot
   .start((ctx) => ctx.reply(constants.START_MESSAGE))
   .help((ctx) => ctx.reply(constants.HELP_MESSAGE))
   .command('new', (ctx) => ctx.scene.enter(createEventScene.name))
+  .use(async (ctx, next) => {
+    await (next && next())
+
+    return ctx.reply(constants.UNKNOWN_MESSAGE)
+  })
 
 bot.launch()
