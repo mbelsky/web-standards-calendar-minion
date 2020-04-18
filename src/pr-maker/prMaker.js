@@ -17,26 +17,25 @@ const originOwner = process.env.GITHUB_ORIGIN_OWNER
 const repoName = process.env.GITHUB_REPO_NAME
 const upstreamOwner = process.env.GITHUB_UPSTREAM_OWNER
 
+const masterBranchRef = 'heads/master'
+
 const makePullRequestUnsafe = async (yamlFileData) => {
   const { filename, output } = yamlFileData
   const commitMessage = 'Добавляет ' + filename
 
-  // TODO: get upstream head sha
-  // TODO: merge upstream
-
   const response = await octokit.git.getRef({
-    owner: originOwner,
+    owner: upstreamOwner,
     repo: repoName,
-    ref: 'heads/master',
+    ref: masterBranchRef,
   })
-  const originMasterSHA = response.data.object.sha
+  const upstreamMasterSHA = response.data.object.sha
 
   // create a branch
   await octokit.git.createRef({
     owner: originOwner,
     repo: repoName,
     ref: 'refs/heads/' + filename,
-    sha: originMasterSHA,
+    sha: upstreamMasterSHA,
   })
 
   await octokit.repos.createOrUpdateFile({
