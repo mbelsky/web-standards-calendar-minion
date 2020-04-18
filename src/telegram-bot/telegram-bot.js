@@ -26,9 +26,9 @@ const rateLimitConfig = {
 bot
   .use(rateLimit(rateLimitConfig))
   .use(session())
+  .help((ctx) => ctx.reply(constants.HELP_MESSAGE))
   .use(stage.middleware())
   .start((ctx) => ctx.reply(constants.START_MESSAGE))
-  .help((ctx) => ctx.reply(constants.HELP_MESSAGE))
   .command('new', (ctx) => ctx.scene.enter(createEventScene.name))
   .use(async (ctx, next) => {
     await (next && next())
