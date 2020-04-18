@@ -2,6 +2,23 @@ const YAML = require('yamljs')
 const cyrillicToTranslit = require('./cyrillicToTranslit')
 const { parseDateOutput } = require('./datetime')
 
+/**
+ * An answers map
+ * @typedef {Object} Answers
+ * @property {string} name
+ * @property {boolean} one-day
+ * @property {string} date-start – dd.mm.yyyy
+ * @property {string=} date-end – dd.mm.yyyy
+ * @property {string} time-start – hh:mm
+ * @property {string} time-end – hh:mm
+ * @property {string} city
+ * @property {string} link
+ * @property {boolean} online
+ */
+
+/**
+ * @param {Answers} answers
+ */
 const convertAnswersToYaml = (answers) => {
   // yyyy-mm-dd-event-name.yml
   const { year, month, day } = parseDateOutput(answers['date-start'])
