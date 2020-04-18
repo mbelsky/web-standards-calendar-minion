@@ -17,6 +17,6 @@
     "prettier": "^2.0.4"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv-safe": "^8.2.0"
   }
 }

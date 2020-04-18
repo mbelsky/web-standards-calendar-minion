@@ -1,4 +1,4 @@
-const { error } = require('dotenv').config()
+const { error } = require('dotenv-safe').config()
 
 if (error) {
   throw error
