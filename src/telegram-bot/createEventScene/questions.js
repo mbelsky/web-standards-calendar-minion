@@ -63,17 +63,18 @@ const questions = [
       return true
     },
     when: (answers) => !answers['one-day'],
-    // TODO: send default as a suggested value
-    default(answers) {
+    suggestions(answers) {
       const dateStart = getDateFromString(answers['date-start'])
       dateStart.setDate(dateStart.getDate() + 1)
-      return (
-        `${dateStart.getDate()}`.padStart('0', 2) +
+
+      const dateEnd =
+        `${dateStart.getDate()}`.padStart(2, '0') +
         '.' +
-        `${dateStart.getMonth() + 1}`.padStart('0', 2) +
+        `${dateStart.getMonth() + 1}`.padStart(2, '0') +
         '.' +
         `${dateStart.getFullYear()}`
-      )
+
+      return [dateEnd]
     },
   },
   {

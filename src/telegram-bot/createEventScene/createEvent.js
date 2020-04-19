@@ -3,6 +3,7 @@ const Stage = require('telegraf/stage')
 const prMaker = require('pr-maker')
 const convertAnswersToYaml = require('../utils/convertAnswersToYaml')
 const getActiveQuestion = require('./getActiveQuestion')
+const getQuestionExtra = require('./getQuestionExtra')
 const questions = require('./questions')
 
 const SCENE_NAME = 'new'
@@ -23,7 +24,9 @@ const validateAnswer = ({ question, answers, answer }) => {
 const scene = new Scene(SCENE_NAME)
   .enter((ctx) => {
     const question = getActiveQuestion(questions, undefined)
-    return ctx.reply(question.message)
+    const extra = getQuestionExtra(question)
+
+    return ctx.reply(question.message, extra)
   })
   .leave((ctx) => {
     ctx.session.createEventScene = undefined
@@ -41,7 +44,9 @@ const scene = new Scene(SCENE_NAME)
     })
 
     if (typeof validationResult === 'string') {
-      return ctx.reply(validationResult)
+      const extra = getQuestionExtra(activeQuestion, answers)
+
+      return ctx.reply(validationResult, extra)
     }
 
     if (ctx.session.createEventScene === undefined) {
@@ -62,13 +67,13 @@ const scene = new Scene(SCENE_NAME)
       return Promise.all([makePr(ctx, yamlFileData), Stage.leave()(ctx)])
     }
 
+    const extra = getQuestionExtra(nextQuestion, answers)
     const message =
       typeof nextQuestion.message === 'function'
         ? nextQuestion.message(answers)
         : nextQuestion.message
 
-    // TODO: support keyboard markup
-    return ctx.reply(message)
+    return ctx.reply(message, extra)
   })
 
 module.exports = {

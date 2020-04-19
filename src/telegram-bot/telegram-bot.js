@@ -5,6 +5,7 @@ if (error) {
 }
 
 const Telegraf = require('telegraf')
+const Markup = require('telegraf/markup')
 const session = require('telegraf/session')
 const Stage = require('telegraf/stage')
 const rateLimit = require('telegraf-ratelimit')
@@ -16,8 +17,10 @@ const stage = new Stage()
 
 stage.register(createEventScene.scene).command('cancel', (ctx) => {
   return Promise.all([
-    // TODO: also reset keyboard markup here
-    ctx.reply(constants.BREAK_EVENT_CREATION_MESSAGE),
+    ctx.reply(
+      constants.BREAK_EVENT_CREATION_MESSAGE,
+      Markup.removeKeyboard().extra(),
+    ),
     Stage.leave()(ctx),
   ])
 })
