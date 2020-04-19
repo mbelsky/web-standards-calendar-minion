@@ -65,16 +65,28 @@ const questions = [
     when: (answers) => !answers['one-day'],
     suggestions(answers) {
       const dateStart = getDateFromString(answers['date-start'])
-      dateStart.setDate(dateStart.getDate() + 1)
 
-      const dateEnd =
-        `${dateStart.getDate()}`.padStart(2, '0') +
-        '.' +
-        `${dateStart.getMonth() + 1}`.padStart(2, '0') +
-        '.' +
-        `${dateStart.getFullYear()}`
+      const dayAfterDateStart = getDateFromString(answers['date-start'])
+      dayAfterDateStart.setDate(dateStart.getDate() + 1)
 
-      return [dateEnd]
+      const suggestions = [dayAfterDateStart]
+
+      // is Friday
+      if (dateStart.getDay() === 5) {
+        const sunday = getDateFromString(answers['date-start'])
+        sunday.setDate(dateStart.getDate() + 2)
+
+        suggestions.push(sunday)
+      }
+
+      return suggestions.map(
+        (date) =>
+          `${date.getDate()}`.padStart(2, '0') +
+          '.' +
+          `${date.getMonth() + 1}`.padStart(2, '0') +
+          '.' +
+          `${date.getFullYear()}`,
+      )
     },
   },
   {
