@@ -1,4 +1,4 @@
-const YAML = require('yamljs')
+const YAML = require('yaml')
 const cyrillicToTranslit = require('./cyrillicToTranslit')
 const { parseDateOutput } = require('./datetime')
 
@@ -48,7 +48,7 @@ const convertAnswersToYaml = (answers) => {
 
   return {
     filename,
-    output: YAML.stringify(result, 4),
+    output: YAML.stringify(result),
   }
 }
 
