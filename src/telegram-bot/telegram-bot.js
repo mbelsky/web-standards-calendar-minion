@@ -4,7 +4,9 @@ if (error) {
   throw error
 }
 
-const Telegraf = require('telegraf')
+const reporter = require('reporter')
+
+const Telegraf = require('telegraf/telegraf')
 const Markup = require('telegraf/markup')
 const session = require('telegraf/session')
 const Stage = require('telegraf/stage')
@@ -33,6 +35,15 @@ const rateLimitConfig = {
 }
 
 bot
+  .catch(async (err, ctx) => {
+    reporter.error(err)
+
+    try {
+      await ctx.reply(constants.OOPS_MESSAGE)
+    } catch (e) {
+      reporter.error(e)
+    }
+  })
   .use(rateLimit(rateLimitConfig))
   .use(session())
   .help((ctx) => ctx.reply(constants.HELP_MESSAGE))

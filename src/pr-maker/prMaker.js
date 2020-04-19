@@ -1,4 +1,5 @@
 const { error } = require('dotenv-safe').config()
+const reporter = require('reporter')
 
 if (error) {
   throw error
@@ -64,8 +65,8 @@ const makePullRequestUnsafe = async (yamlFileData) => {
 
 const makePullRequest = (yamlFileData) =>
   makePullRequestUnsafe(yamlFileData).catch((e) => {
-    // TODO: report exception
-    console.log(e)
+    reporter.error(e)
+
     return {
       status: 'error',
       message: constants.messagePrFailed,

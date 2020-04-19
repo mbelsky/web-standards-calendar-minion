@@ -1,0 +1,10 @@
+{
+  "name": "reporter",
+  "version": "1.0.0",
+  "main": "reporter.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "rollbar": "^2.15.1"
+  }
+}
