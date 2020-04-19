@@ -1,0 +1,16 @@
+[Unit]
+Description=Web-standards Calendar Minion Telegram Bot
+After=network.target
+StartLimitBurst=3
+StartLimitIntervalSec=10
+
+[Service]
+User=web-standards
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/web-standards-calendar-minion
+ExecStart=/usr/bin/yarn start
+Restart=always
+RestartSec=500ms
+
+[Install]
+WantedBy=multi-user.target
