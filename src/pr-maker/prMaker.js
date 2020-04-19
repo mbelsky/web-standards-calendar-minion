@@ -52,7 +52,7 @@ const makePullRequestUnsafe = async (yamlFileData) => {
     owner: upstreamOwner,
     repo: repoName,
     title: commitMessage,
-    head: filename,
+    head: `${originOwner}:${filename}`,
     base: 'master',
     maintainer_can_modify: true,
   })
