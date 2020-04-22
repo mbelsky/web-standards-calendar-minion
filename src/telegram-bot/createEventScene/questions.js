@@ -126,8 +126,8 @@ const questions = [
     name: 'city',
     message: 'Город',
     validate(value) {
-      if (!value.trim()) {
-        return constants.EMPTY_STRING_MESSAGE
+      if (!/^[а-яё-]+$/i.test(value.trim())) {
+        return constants.CYRILLIC_SYMBOLS_MESSAGE
       }
 
       return true
