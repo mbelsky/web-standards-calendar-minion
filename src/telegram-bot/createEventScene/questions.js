@@ -11,7 +11,9 @@ const questions = [
     name: 'name',
     message: 'Введите название события',
     validate(value) {
-      if (!value.trim()) return constants.EMPTY_STRING_MESSAGE
+      if (!value.trim()) {
+        return constants.EMPTY_STRING_MESSAGE
+      }
       return true
     },
     filter(value) {
@@ -33,8 +35,9 @@ const questions = [
         ? 'День события (dd.mm.yyyy)'
         : 'Первый день события (dd.mm.yyyy)',
     validate: function (value) {
-      if (!/^\d{2}\.\d{2}\.\d{4}$/.test(value))
+      if (!/^\d{2}\.\d{2}\.\d{4}$/.test(value)) {
         return constants.DATE_FORMAT_MESSAGE
+      }
 
       if (!isValidDate(value)) {
         return constants.DATE_CHECK_DATE_MESSAGE
@@ -47,8 +50,9 @@ const questions = [
     name: 'date-end',
     message: 'Последний день события (dd.mm.yyyy)',
     validate: function (value, answers) {
-      if (!/^\d{2}\.\d{2}\.\d{4}$/.test(value))
+      if (!/^\d{2}\.\d{2}\.\d{4}$/.test(value)) {
         return constants.DATE_FORMAT_MESSAGE
+      }
 
       if (!isValidDate(value)) {
         return constants.DATE_CHECK_DATE_MESSAGE
@@ -93,7 +97,9 @@ const questions = [
     name: 'time-start',
     message: 'Время начала (hh:mm)',
     validate: function (value) {
-      if (!isValidTime(value)) return constants.TIME_FORMAT_MESSAGE
+      if (!isValidTime(value)) {
+        return constants.TIME_FORMAT_MESSAGE
+      }
 
       return true
     },
@@ -102,7 +108,9 @@ const questions = [
     name: 'time-end',
     message: 'Время окончания (hh:mm)',
     validate: function (value, answers) {
-      if (!isValidTime(value)) return constants.TIME_FORMAT_MESSAGE
+      if (!isValidTime(value)) {
+        return constants.TIME_FORMAT_MESSAGE
+      }
 
       const timeStart = getTimeFromString(answers['time-start'])
       const timeEnd = getTimeFromString(value)
@@ -118,7 +126,10 @@ const questions = [
     name: 'city',
     message: 'Город',
     validate(value) {
-      if (!value.trim()) return constants.EMPTY_STRING_MESSAGE
+      if (!value.trim()) {
+        return constants.EMPTY_STRING_MESSAGE
+      }
+
       return true
     },
     filter(value) {
