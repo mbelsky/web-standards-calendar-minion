@@ -33,7 +33,7 @@ const convertAnswersToYaml = (answers) => {
     '.yml'
 
   const result = {
-    name: answers.name.includes('#') ? `'${answers.name}'` : answers.name,
+    name: answers.name,
     date:
       answers['date-start'] +
       (answers['one-day'] ? '' : '-' + answers['date-end']),
